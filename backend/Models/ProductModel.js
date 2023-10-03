@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
         type: String,
     },
     warrantyExpirationDate: {
-        type: Date,
+        type: String,
     },
 });
 

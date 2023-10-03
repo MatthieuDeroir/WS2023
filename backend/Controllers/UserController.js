@@ -6,8 +6,8 @@ exports.signin = async (req, res) => {
     try {
         const { username, password } = req.body;
 
-        const user = await User.findOne({ username }).select('+password');
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+        const user = await User.findOne({ username });
+        if (!user || !(await user.isValidPassword(password))) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
@@ -19,23 +19,19 @@ exports.signin = async (req, res) => {
     }
 };
 
-
 exports.signup = async (req, res) => {
     try {
         const { username, password } = req.body;
 
-        // Vérifie si l'utilisateur existe déjà
         const existingUser = await User.findOne({ username });
         if(existingUser) {
             return res.status(409).json({ message: 'Username is already taken' });
         }
 
-        // Hash le mot de passe avant de le stocker
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const passwordHash = await bcrypt.hash(password, salt);
 
-        // Crée un nouvel utilisateur et renvoie un token
-        const user = await User.create({ username, password: hashedPassword });
+        const user = await User.create({ username, passwordHash });
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         res.status(201).json({ token });

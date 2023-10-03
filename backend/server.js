@@ -1,6 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+// use dotenv to hide the password
+require("dotenv").config();
+
+// use fetchExpirationDateFromWebsite
+const fetchExpirationDateFromWebsite = require("./WebsiteAutomation");
+
+fetchExpirationDateFromWebsite('5CD110Q11P', 'HP');
 
 
 const app = express();
