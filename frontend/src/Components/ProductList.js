@@ -8,7 +8,7 @@ function ProductList({ products, fetchProducts }) {
 
     const handleDelete = async (serialNumber) => {
         try {
-            const response = await fetch(`${IP}:${PORT}/api/product/${serialNumber}`, {
+            const response = await fetch(`${IP}${PORT}/api/product/${serialNumber}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`

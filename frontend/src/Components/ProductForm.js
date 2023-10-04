@@ -14,7 +14,7 @@ function ProductForm({ onProductAdded }) {
 
             // Send all serial numbers at once
             for (const sn of serialNumbers) {
-                const response = await fetch(`${IP}:${PORT}/api/product`, {
+                const response = await fetch(`${IP}${PORT}/api/product`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
