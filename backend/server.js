@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 // use dotenv to hide the password
 require("dotenv").config();
+const {IP} = require('./config');
 
 // use fetchExpirationDateFromWebsite
 const fetchExpirationDateFromWebsite = require("./WebsiteAutomation");
@@ -20,7 +21,7 @@ app.disable("x-powered-by");
 
 // Connect to MongoDB using Mongoose.
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/WS2023DB", {
+mongoose.connect(`mongodb://${IP}/WS2023DB`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

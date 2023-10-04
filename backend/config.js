@@ -1,0 +1,1 @@
+const IP = "http://localhost";
