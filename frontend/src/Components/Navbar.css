@@ -11,3 +11,8 @@
     max-width: 200px;
     height: auto;
 }
+
+.navbar-container ul {
+    display: flex;
+    list-style: none;
+}
