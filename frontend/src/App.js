@@ -49,7 +49,7 @@ function App() {
 
     return (
         <div className="App">
-            <Navbar onLogout={() => setIsAuthenticated(false)} />
+            <Navbar onLogout={() => setIsAuthenticated(false)} isAuthenticated={isAuthenticated} />
             {!isAuthenticated ? (
                 <Auth onAuthSuccess={() => setIsAuthenticated(true)} />
             ) : (
