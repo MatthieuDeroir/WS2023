@@ -3,6 +3,7 @@ import Auth from './Components/Auth';
 import ProductForm from './Components/ProductForm';
 import ProductList from './Components/ProductList';
 import Navbar from './Components/Navbar';
+const {IP, PORT} = require('./config.js');
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -15,7 +16,7 @@ function App() {
                 throw new Error('User ID not found in local storage');
             }
 
-            const response = await fetch(`http://localhost:4000/products/${userId}`, {
+            const response = await fetch(`${IP}${PORT}/api/products/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
