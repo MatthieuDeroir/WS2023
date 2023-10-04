@@ -1,36 +1,50 @@
-/* ProductList.css */
 .product-list-container {
     background-color: #ffffff;
-    padding: 20px;
-    border: 1px solid #2c2c2c;
-    margin-top: 20px;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+.product-list-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .product-list-container ul {
     list-style-type: none;
     padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .product-list-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.product-list-container li:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .product-list-container button {
-    background-color: #6200ea;  /* Dark Violet */
+    background-color: #6200ea;
     color: #ffffff;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 15px;
     cursor: pointer;
     border-radius: 5px;
-    margin-left: 10px;
+    transition: 0.2s;
+}
+
+.product-list-container button:hover {
+    background-color: #5000b8;
 }
 
 .warranty-icon {
-    width: 120px;
-    height: 50px;
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
 }

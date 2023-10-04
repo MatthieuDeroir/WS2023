@@ -3,13 +3,14 @@
     padding: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;  /* take full width */
+    justify-content: center;  /* centered content */
+    position: relative;       /* added for positioning logout button */
+    width: 100%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container img.logo {
-    max-width: 180px;
+    max-width: 480px;
     height: auto;
 }
 
@@ -21,8 +22,12 @@
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+    position: absolute;   /* position logout button */
+    top: 50%;            /* center vertically */
+    right: 20px;         /* push to the right side */
+    transform: translateY(-50%);  /* centering fix */
 }
 
 .navbar-container button:hover {
-    background-color: #5000b8;  /* darker shade on hover */
+    background-color: #5000b8;
 }

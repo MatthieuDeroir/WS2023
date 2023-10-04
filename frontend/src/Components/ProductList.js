@@ -48,14 +48,21 @@ function ProductList({ products, fetchProducts }) {
 
             <ul>
                 {products.filter(product => product.serialNumber.includes(searchTerm)).map((product) => (
-                <li key={product.serialNumber}>
-                        {product.productName} - {product.serialNumber} - {product.warrantyExpirationDate}
-                    {isUnderWarranty(product.warrantyExpirationDate) ?
-                        <img src="/sg.png" className="warranty-icon" /> :
-                        <img src="/hg.png" className="warranty-icon" />
-                    }
-                        <button onClick={() => handleDelete(product.serialNumber)}>Delete</button>
+                    <li key={product.serialNumber}>
+                        <div className="product-info">
+                            <span className="product-name">{product.productName}</span>
+                            <span className="product-serial">{product.serialNumber}</span>
+                            <span className="product-date">{product.warrantyExpirationDate}</span>
+                        </div>
+                        <div className="product-actions">
+                            {isUnderWarranty(product.warrantyExpirationDate) ?
+                                <img src="/sg.png" className="warranty-icon" /> :
+                                <img src="/hg.png" className="warranty-icon" />
+                            }
+                            <button onClick={() => handleDelete(product.serialNumber)}>Delete</button>
+                        </div>
                     </li>
+
                 ))}
 
             </ul>
