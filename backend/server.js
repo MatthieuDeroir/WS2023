@@ -6,8 +6,10 @@ require("dotenv").config();
 
 // use fetchExpirationDateFromWebsite
 const fetchExpirationDateFromWebsite = require("./WebsiteAutomation");
+const {addProduct} = require("./Controllers/ProductController");
 
-fetchExpirationDateFromWebsite('5CD110Q11P', 'HP');
+
+// fetchExpirationDateFromWebsite('5CD110Q11P', 'HP');
 
 
 const app = express();
@@ -32,6 +34,11 @@ db.once("open", () => {
 // Set up middleware.
 app.use(cors());
 app.use(express.json());
+
+const productRouter = require("./Routes/ProductRoutes");
+const authRouter = require('./routes/UserRoutes');
+app.use('/api/', authRouter);
+app.use('/api/', productRouter);
 
 // Start the server.
 app.listen(PORT, () => {

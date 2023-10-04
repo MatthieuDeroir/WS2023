@@ -1,0 +1,36 @@
+/* ProductList.css */
+.product-list-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #2c2c2c;
+    margin-top: 20px;
+}
+
+.product-list-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-list-container li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-list-container li:last-child {
+    border-bottom: none;
+}
+
+.product-list-container button {
+    background-color: #6200ea;  /* Dark Violet */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.warranty-icon {
+    width: 120px;
+    height: 50px;
+}

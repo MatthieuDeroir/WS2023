@@ -1,6 +1,10 @@
+/* App.css */
 .App {
-  text-align: center;
+  background-color: #f0f0f0;
+  padding: 20px;
+  color: #000;
 }
+
 
 .App-logo {
   height: 40vmin;
