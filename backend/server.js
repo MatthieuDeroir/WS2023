@@ -21,7 +21,7 @@ app.disable("x-powered-by");
 
 // Connect to MongoDB using Mongoose.
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${IP}/WS2023DB`, {
+mongoose.connect(`mongodb://localhost/WS2023DB`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -45,8 +45,8 @@ app.use(express.json());
 
 const productRouter = require("./Routes/ProductRoutes");
 const authRouter = require('./Routes/UserRoutes');
-app.use('/', authRouter);
-app.use('/', productRouter);
+app.use('/api/', authRouter);
+app.use('/api/', productRouter);
 
 // Start the server.
 app.listen(PORT, () => {

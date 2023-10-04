@@ -3,6 +3,7 @@ import Auth from './Components/Auth';
 import ProductForm from './Components/ProductForm';
 import ProductList from './Components/ProductList';
 import Navbar from './Components/Navbar';
+import './App.css';
 const {IP, PORT} = require('./config.js');
 
 function App() {

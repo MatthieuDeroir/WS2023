@@ -1,1 +1,1 @@
-const IP = "http://localhost";
+const IP = "localhost";

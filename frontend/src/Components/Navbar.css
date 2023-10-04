@@ -1,18 +1,28 @@
-/* Navbar.css */
 .navbar-container {
     background-color: #2c2c2c;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;  /* take full width */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container img.logo {
-    max-width: 200px;
+    max-width: 180px;
     height: auto;
 }
 
-.navbar-container ul {
-    display: flex;
-    list-style: none;
+.navbar-container button {
+    background-color: #6200ea;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar-container button:hover {
+    background-color: #5000b8;  /* darker shade on hover */
 }

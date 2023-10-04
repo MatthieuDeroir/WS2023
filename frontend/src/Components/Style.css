@@ -1,0 +1,36 @@
+.product-list-container,
+.product-form-container,
+.auth-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;  /* restricting width */
+    margin: 20px 0;  /* vertical margin */
+    border-radius: 10px;  /* rounded edges */
+}
+
+.product-list-container ul,
+.product-form-container select,
+.product-form-container input,
+.auth-container input {
+    width: 100%;  /* take full width */
+}
+
+.product-list-container button,
+.product-form-container button,
+.auth-container button {
+    background-color: #6200ea;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.product-list-container button:hover,
+.product-form-container button:hover,
+.auth-container button:hover {
+    background-color: #5000b8;  /* darker shade on hover */
+}
