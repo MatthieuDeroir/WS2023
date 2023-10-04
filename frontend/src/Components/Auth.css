@@ -1,0 +1,24 @@
+/* Auth.css */
+.auth-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #2c2c2c;
+    margin-top: 20px;
+}
+
+.auth-container button {
+    background-color: #6200ea;  /* Dark Violet */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.auth-container input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
