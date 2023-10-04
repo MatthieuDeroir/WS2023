@@ -8,7 +8,7 @@ function Auth({ onAuthSuccess }) {
 
     const handleSignIn = async () => {
         try {
-            const response = await fetch(`${IP}${PORT}/auth/signin`, {
+            const response = await fetch(`${IP}${PORT}/api/auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ function Auth({ onAuthSuccess }) {
 
     const handleSignUp = async () => {
         try {
-            const response = await fetch(`${IP}${PORT}/auth/signup`, {
+            const response = await fetch(`${IP}${PORT}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
