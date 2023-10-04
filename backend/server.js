@@ -38,8 +38,8 @@ app.use(express.json());
 
 const productRouter = require("./Routes/ProductRoutes");
 const authRouter = require('./Routes/UserRoutes');
-app.use('/api/', authRouter);
-app.use('/api/', productRouter);
+app.use('/', authRouter);
+app.use('/', productRouter);
 
 // Start the server.
 app.listen(PORT, () => {
