@@ -36,7 +36,7 @@ app.use(cors());
 app.use(express.json());
 
 const productRouter = require("./Routes/ProductRoutes");
-const authRouter = require('./routes/UserRoutes');
+const authRouter = require('./Routes/UserRoutes');
 app.use('/api/', authRouter);
 app.use('/api/', productRouter);
 

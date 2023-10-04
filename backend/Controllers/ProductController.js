@@ -1,4 +1,4 @@
-const productSchema = require('../models/ProductModel');
+const productSchema = require('../Models/ProductModel');
 const fetchExpirationDateFromWebsite = require("../WebsiteAutomation");
 
 
