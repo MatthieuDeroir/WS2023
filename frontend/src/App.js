@@ -15,7 +15,7 @@ function App() {
                 throw new Error('User ID not found in local storage');
             }
 
-            const response = await fetch(`http://localhost:4000/api/products/${userId}`, {
+            const response = await fetch(`http://localhost:4000/products/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },

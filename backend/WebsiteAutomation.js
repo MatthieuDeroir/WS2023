@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const {updateProduct} = require("./Controllers/ProductController");
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

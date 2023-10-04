@@ -33,7 +33,14 @@ db.once("open", () => {
 });
 
 // Set up middleware.
-app.use(cors());
+// ... vos autres imports ...
+
+const corsOptions = {
+    origin: '*',  // Vous pouvez remplacer '*' par l'URL de votre frontend pour plus de sécurité
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const productRouter = require("./Routes/ProductRoutes");
