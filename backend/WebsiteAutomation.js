@@ -6,7 +6,7 @@ function sleep(ms) {
 }
 
 async function fetchExpirationDateFromWebsite(serialNumber, manufacturer) {
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch({headless: true});
     const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
     let endDate = null;
     let name = null;
