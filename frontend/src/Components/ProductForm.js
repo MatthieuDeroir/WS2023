@@ -1,63 +1,6 @@
-// import React, { useState } from 'react';
-//
-// function ProductForm({ onProductAdded }) {
-//     const [serialNumber, setSerialNumber] = useState('');
-//     const [manufacturer, setManufacturer] = useState('HP');
-//     const [user, setUser] = useState(localStorage.getItem('user'));
-//
-//     const handleAddProduct = async () => {
-//         try {
-//             setUser(localStorage.getItem('user'))
-//             console.log(localStorage.getItem('user'))
-//             const response = await fetch('http://localhost:4000/api/product', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-//                 },
-//                 body: JSON.stringify({ serialNumber, manufacturer, user })
-//             });
-//
-//             const data = await response.json();
-//
-//             if (data.success) {
-//                 onProductAdded();
-//             } else {
-//                 console.error(data.message);
-//             }
-//         } catch (error) {
-//             console.error("Error adding product:", error);
-//         }
-//     };
-//
-//
-//     return (
-//         <div>
-//             <h2>Add Product</h2>
-//             <input
-//                 type="text"
-//                 value={serialNumber}
-//                 onChange={(e) => setSerialNumber(e.target.value)}
-//                 placeholder="Serial Number"
-//             />
-//             <select value={manufacturer} onChange={(e) => setManufacturer(e.target.value)}>
-//                 <option>HP</option>
-//                 <option>LENOVO</option>
-//                 <option>ASUS</option>
-//                 <option>LG</option>
-//                 <option>TOSHIBA</option>
-//                 <option>SONY</option>
-//             </select>
-//             <button onClick={handleAddProduct}>Add Product</button>
-//         </div>
-//     );
-// }
-//
-// export default ProductForm;
-
-
 import React, { useState } from 'react';
 import './ProductForm.css';
+const { IP, PORT } = require('../config.js');
 
 function ProductForm({ onProductAdded }) {
     const [manufacturer, setManufacturer] = useState('HP');
@@ -71,7 +14,7 @@ function ProductForm({ onProductAdded }) {
 
             // Send all serial numbers at once
             for (const sn of serialNumbers) {
-                const response = await fetch('http://localhost:4000/api/product', {
+                const response = await fetch(`${IP}:${PORT}/api/product`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

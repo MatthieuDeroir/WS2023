@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ProductList.css';
+const {IP, PORT} = require('../config.js');
 
 function ProductList({ products, fetchProducts }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -7,7 +8,7 @@ function ProductList({ products, fetchProducts }) {
 
     const handleDelete = async (serialNumber) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/product/${serialNumber}`, {
+            const response = await fetch(`${IP}:${PORT}/api/product/${serialNumber}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`

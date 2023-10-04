@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Auth.css';
+const { IP, PORT } = require('../config.js');
 
 function Auth({ onAuthSuccess }) {
     const [username, setUsername] = useState('');
@@ -7,7 +8,7 @@ function Auth({ onAuthSuccess }) {
 
     const handleSignIn = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/auth/signin', {
+            const response = await fetch(`${IP}:${PORT}/api/auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
