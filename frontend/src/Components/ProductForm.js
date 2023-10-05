@@ -7,13 +7,18 @@ function ProductForm({ onProductAdded }) {
     const [serialNumbers, setSerialNumbers] = useState(['']);  // Initial state with one empty input
     const [csvFile, setCsvFile] = useState(null);
     const [user, setUser] = useState(localStorage.getItem('user'));
+    const [isAdding, setIsAdding] = useState(false);
+    const [productsAdded, setProductsAdded] = useState(0);
+
 
     const handleAddProduct = async () => {
+        setIsAdding(true);
+        setProductsAdded(0);
+        let errors = 0;
         try {
             setUser(localStorage.getItem('user'));
 
-            // Send all serial numbers at once
-            for (const sn of serialNumbers) {
+            for (const [index, sn] of serialNumbers.entries()) {
                 const response = await fetch(`${IP}${PORT}/api/product`, {
                     method: 'POST',
                     headers: {
@@ -23,15 +28,29 @@ function ProductForm({ onProductAdded }) {
                     body: JSON.stringify({ serialNumber: sn, manufacturer, user })
                 });
 
-                const data = await response.json();
-
-                if (!data.success) {
+                if (response.ok) {
+                    // Increment productsAdded by 1
+                    setProductsAdded(prevCount => prevCount + 1);
+                } else {
+                    const data = await response.json();
                     console.error(data.message);
+                    errors++;
                 }
+
             }
+
             onProductAdded();
         } catch (error) {
             console.error("Error adding product:", error);
+            errors++;
+        } finally {
+            setIsAdding(false);  // Remove the overlay after all products are added
+
+            if (errors) {
+                alert(`Finished adding products. There were ${errors} errors.`);
+            } else {
+                alert("All products were successfully added!");
+            }
         }
     };
 
@@ -54,6 +73,12 @@ function ProductForm({ onProductAdded }) {
 
     return (
         <div className="product-form-container">
+            {isAdding && (
+                <div className="overlay">
+                    <div className="loading-icon"></div>
+                    <p>{productsAdded} of {serialNumbers.length} products added</p>
+                </div>
+            )}
             <h2>Add Product</h2>
             <button onClick={() => setSerialNumbers([...serialNumbers, ''])}>+</button>
             <button onClick={() => setSerialNumbers(serialNumbers.slice(0, -1))}>-</button>
