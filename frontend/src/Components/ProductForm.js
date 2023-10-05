@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ProductForm.css';
+const { IP, PORT } = require('../config.js');
 
 function ProductForm({ onProductAdded }) {
     const [products, setProducts] = useState([{ manufacturer: 'HP', serialNumber: '' }]);
@@ -13,7 +14,7 @@ function ProductForm({ onProductAdded }) {
             const validProducts = products.filter(product => product.serialNumber.trim());
 
             for (const product of validProducts) {
-                const response = await fetch('http://localhost:4000/api/product', {
+                const response = await fetch(`${IP}${PORT}/api/product`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
