@@ -4,7 +4,6 @@ const productSchema = new mongoose.Schema({
     serialNumber: {
         type: String,
         required: true,
-        unique: true
     },
     manufacturer: {
         type: String,

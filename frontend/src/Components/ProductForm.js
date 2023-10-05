@@ -1,110 +1,122 @@
 import React, { useState } from 'react';
 import './ProductForm.css';
-const { IP, PORT } = require('../config.js');
 
 function ProductForm({ onProductAdded }) {
-    const [manufacturer, setManufacturer] = useState('HP');
-    const [serialNumbers, setSerialNumbers] = useState(['']);  // Initial state with one empty input
+    const [products, setProducts] = useState([{ manufacturer: 'HP', serialNumber: '' }]);
     const [csvFile, setCsvFile] = useState(null);
     const [user, setUser] = useState(localStorage.getItem('user'));
-    const [isAdding, setIsAdding] = useState(false);
-    const [productsAdded, setProductsAdded] = useState(0);
-
 
     const handleAddProduct = async () => {
-        setIsAdding(true);
-        setProductsAdded(0);
-        let errors = 0;
         try {
             setUser(localStorage.getItem('user'));
 
-            for (const [index, sn] of serialNumbers.entries()) {
-                const response = await fetch(`${IP}${PORT}/api/product`, {
+            const validProducts = products.filter(product => product.serialNumber.trim());
+
+            for (const product of validProducts) {
+                const response = await fetch('http://localhost:4000/api/product', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     },
-                    body: JSON.stringify({ serialNumber: sn, manufacturer, user })
+                    body: JSON.stringify({
+                        serialNumber: product.serialNumber,
+                        manufacturer: product.manufacturer,
+                        user
+                    })
                 });
 
-                if (response.ok) {
-                    // Increment productsAdded by 1
-                    setProductsAdded(prevCount => prevCount + 1);
-                } else {
-                    const data = await response.json();
+                const data = await response.json();
+                if (data.error) {
                     console.error(data.message);
-                    errors++;
                 }
-
             }
 
             onProductAdded();
-        } catch (error) {
-            console.error("Error adding product:", error);
-            errors++;
-        } finally {
-            setIsAdding(false);  // Remove the overlay after all products are added
+            alert('Produits ajoutés avec succès!');
 
-            if (errors) {
-                alert(`Finished adding products. There were ${errors} errors.`);
-            } else {
-                alert("All products were successfully added!");
-            }
+        } catch (error) {
+            console.error("Erreur lors de l'ajout des produits:", error);
         }
     };
 
     const handleCSVUpload = async () => {
-        // Assuming the CSV has two columns: MANUFACTURER,SERIALNUMBER
         const reader = new FileReader();
         reader.readAsText(csvFile);
         reader.onload = () => {
-            const rows = reader.result.split('\n');
-            const serials = rows.map(row => row.split(',')[1]);
-            setSerialNumbers(serials);
+            const rows = reader.result.split('\n').slice(1);
+            const newProducts = rows.map(row => {
+                const [manufacturer, serialNumber] = row.split(',');
+                return { manufacturer, serialNumber };
+            });
+
+            const updatedProducts = products.map(product => {
+                if (!product.serialNumber.trim() && newProducts.length) {
+                    return newProducts.shift();
+                }
+                return product;
+            });
+
+            setProducts([...updatedProducts, ...newProducts]);
         };
     };
 
-    const handleInputChange = (index, value) => {
-        const newSerialNumbers = [...serialNumbers];
-        newSerialNumbers[index] = value;
-        setSerialNumbers(newSerialNumbers);
+
+
+    const handleSerialNumberChange = (index, value) => {
+        const updatedProducts = [...products];
+        updatedProducts[index].serialNumber = value;
+        setProducts(updatedProducts);
+    };
+
+    const handleManufacturerChange = (index, value) => {
+        const updatedProducts = [...products];
+        updatedProducts[index].manufacturer = value;
+        setProducts(updatedProducts);
+    };
+
+    const handleRemoveProduct = (index) => {
+        const updatedProducts = [...products];
+        updatedProducts.splice(index, 1);
+        setProducts(updatedProducts);
     };
 
     return (
-        <div className="product-form-container">
-            {isAdding && (
-                <div className="overlay">
-                    <div className="loading-icon"></div>
-                    <p>{productsAdded} of {serialNumbers.length} products added</p>
-                </div>
-            )}
-            <h2>Add Product</h2>
-            <button onClick={() => setSerialNumbers([...serialNumbers, ''])}>+</button>
-            <button onClick={() => setSerialNumbers(serialNumbers.slice(0, -1))}>-</button>
-            <select value={manufacturer} onChange={(e) => setManufacturer(e.target.value)}>
-                <option>HP</option>
-                <option>LENOVO</option>
-                <option>ASUS</option>
-                <option>LG</option>
-                <option>TOSHIBA</option>
-                <option>SONY</option>
-            </select>
-            <button onClick={handleAddProduct}>Add Products</button>
-            {serialNumbers.map((sn, index) => (
-                <div key={index}>
+        <div className="product-form-container" style={{ width: '70%', margin: 'auto' }}>
+            <h2>Ajouter des produits</h2>
+            {products.map((product, index) => (
+                <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                    <select
+                        value={product.manufacturer}
+                        onChange={(e) => handleManufacturerChange(index, e.target.value)}
+                        style={{ marginRight: '10px', flex: 1 }}
+                    >
+                        <option>HP</option>
+                        <option>LENOVO</option>
+                        <option>ASUS</option>
+                        <option>LG</option>
+                        <option>TOSHIBA</option>
+                        <option>SONY</option>
+                    </select>
                     <input
                         type="text"
-                        value={sn}
-                        onChange={(e) => handleInputChange(index, e.target.value)}
-                        placeholder="Serial Number"
+                        value={product.serialNumber}
+                        onChange={(e) => handleSerialNumberChange(index, e.target.value)}
+                        placeholder="Numéro de série"
+                        style={{ marginRight: '10px', flex: 2 }}
                     />
+                    <button onClick={() => handleRemoveProduct(index)}>X</button>
                 </div>
             ))}
+            <div>
+                <button onClick={() => setProducts([...products, { manufacturer: 'HP', serialNumber: '' }])}>+</button>
+                <button onClick={() => setProducts(products.slice(0, -1))} style={{ marginLeft: '10px' }}>-</button>
+            </div>
+            <button onClick={handleAddProduct} style={{ marginTop: '10px' }}>Ajouter des produits</button>
 
-            <h3>Or upload a CSV</h3>
-            <input type="file" onChange={(e) => setCsvFile(e.target.files[0])} />
-            <button onClick={handleCSVUpload}>Upload and Parse CSV</button>
+            <h3>Ou téléchargez un CSV</h3>
+            <input type="file" onChange={(e) => setCsvFile(e.target.files[0])} style={{ marginBottom: '10px' }}/>
+            <button onClick={handleCSVUpload}>Télécharger et analyser le CSV</button>
         </div>
     );
 }

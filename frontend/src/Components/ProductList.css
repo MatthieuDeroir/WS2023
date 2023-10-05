@@ -31,6 +31,7 @@
 
 .product-list-container button {
     background-color: #6200ea;
+    align-items: center;
     color: #ffffff;
     border: none;
     padding: 5px 15px;

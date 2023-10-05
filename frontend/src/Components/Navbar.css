@@ -6,7 +6,8 @@
     justify-content: center;  /* centered content */
     position: relative;       /* added for positioning logout button */
     width: 100%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 100px 0px 100px rgba(0, 0, 0, 1);
+    border-radius: 10px;
 }
 
 .navbar-container img.logo {
