@@ -53,17 +53,17 @@ function ProductList({ products, fetchProducts }) {
                     <span>Date</span>
                     <span>Actions</span>
                 </li>
-                {products.filter(product => product.serialNumber.includes(searchTerm)).map((product) => (
-                    <li key={product.serialNumber} className="product-item">
-                        <span className="product-name">{product.productName}</span>
-                        <span className="product-serial">{product.serialNumber}</span>
-                        <span className="product-date">{product.warrantyExpirationDate}</span>
+                {products.filter(product => product.serialNumber && product.serialNumber.includes(searchTerm)).map((product) => (
+                    <li key={product.serialNumber || "Non renseignée"} className="product-item">
+                        <span className="product-name">{product.productName || "Non renseignée"}</span>
+                        <span className="product-serial">{product.serialNumber || "Non renseignée"}</span>
+                        <span className="product-date">{product.warrantyExpirationDate || "Non renseignée"}</span>
                         <div className="product-actions">
-                            {isUnderWarranty(product.warrantyExpirationDate) ?
+                            {product.warrantyExpirationDate && isUnderWarranty(product.warrantyExpirationDate) ?
                                 <img src="/sg.png" className="warranty-icon" /> :
                                 <img src="/hg.png" className="warranty-icon" />
                             }
-                            <button onClick={() => handleDelete(product.serialNumber)}>Delete</button>
+                            <button onClick={() => product.serialNumber && handleDelete(product.serialNumber)}>Delete</button>
                         </div>
                     </li>
                 ))}
