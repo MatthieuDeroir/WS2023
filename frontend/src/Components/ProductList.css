@@ -17,7 +17,7 @@
 .product-list-container ul {
     list-style-type: none;
     padding: 0;
-    max-height: 400px;
+    max-height: 1000px;
     overflow-y: auto;
 }
 
@@ -45,7 +45,47 @@
 }
 
 .warranty-icon {
-    width: 100px;
+    width: 50px;
     height: auto;
     margin-right: 10px;
+}
+.product-list-container ul {
+    list-style-type: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-header,
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table-header {
+    font-weight: bold;
+    background-color: #f2f2f2;
+    justify-content: center;
+    text-align: center;
+}
+
+.product-name,
+.product-serial,
+.product-date {
+    flex: 1;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.product-actions {
+    display: flex;
+    align-items: center;
+}
+
+.table-header span {
 }

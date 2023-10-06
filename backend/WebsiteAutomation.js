@@ -141,8 +141,8 @@ async function fetchExpirationDateFromWebsite(serialNumber, manufacturer) {
 
         const page = await browser.newPage();
 
-        await page.setDefaultNavigationTimeout(120000); // 2 minutes in milliseconds
-        await page.setDefaultTimeout(120000); // 2 minutes in milliseconds
+        await page.setDefaultNavigationTimeout(40000); // 2 minutes in milliseconds
+        await page.setDefaultTimeout(40000); // 2 minutes in milliseconds
 
         console.log('Selecting manufacturer :', manufacturer)
         switch (manufacturer) {

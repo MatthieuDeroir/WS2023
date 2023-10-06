@@ -3,12 +3,15 @@ import Auth from './Components/Auth';
 import ProductForm from './Components/ProductForm';
 import ProductList from './Components/ProductList';
 import Navbar from './Components/Navbar';
+import Overlay from './Components/Overlay';
 import './App.css';
+
 const {IP, PORT} = require('./config.js');
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [products, setProducts] = useState([]);
+    const [showOverlay, setShowOverlay] = useState(true);
 
     const fetchProducts = async () => {
         try {
@@ -50,13 +53,19 @@ function App() {
 
     return (
         <div className="App">
-            <Navbar onLogout={() => setIsAuthenticated(false)} isAuthenticated={isAuthenticated} />
+            {showOverlay && (
+                    <Overlay onClose={() => setShowOverlay(false)}>
+
+                    </Overlay>
+            )}
+            <Navbar onLogout={() => setIsAuthenticated(false)} isAuthenticated={isAuthenticated}/>
+
             {!isAuthenticated ? (
-                <Auth onAuthSuccess={() => setIsAuthenticated(true)} />
+                <Auth onAuthSuccess={() => setIsAuthenticated(true)}/>
             ) : (
                 <>
-                    <ProductForm onProductAdded={fetchProducts} />
-                    <ProductList products={products} />
+                    <ProductForm onProductAdded={fetchProducts}/>
+                    <ProductList products={products}/>
 
                 </>
             )}
