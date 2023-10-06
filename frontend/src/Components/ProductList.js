@@ -28,13 +28,14 @@ function ProductList({ products, fetchProducts }) {
     };
 
     const isUnderWarranty = (warrantyDate) => {
+        if (!warrantyDate) return false; // Ajoutez cette ligne pour gérer les valeurs null ou non définies
+
         const [day, month, year] = warrantyDate.split('/');
         const warrantyEndDate = new Date(year, month - 1, day); // month is 0-indexed
         const currentDate = new Date();
 
         return currentDate <= warrantyEndDate;
     };
-
 
     return (
         <div className="product-list-container">
